@@ -32,6 +32,10 @@ func (a *App) Clear() string {
 	return "0"
 }
 
+func (a *App) ClearMemory() string {
+	return ""
+}
+
 func (a *App) Backspace(text string) string {
 	if len(text) == 1 {
 		return "0"

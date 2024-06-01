@@ -10,6 +10,10 @@ export function Clear() {
   return window['go']['main']['App']['Clear']();
 }
 
+export function ClearMemory() {
+  return window['go']['main']['App']['ClearMemory']();
+}
+
 export function DigitNumber(arg1, arg2) {
   return window['go']['main']['App']['DigitNumber'](arg1, arg2);
 }

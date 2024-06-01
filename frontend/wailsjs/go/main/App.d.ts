@@ -5,4 +5,6 @@ export function Backspace(arg1:string):Promise<string>;
 
 export function Clear():Promise<string>;
 
+export function ClearMemory():Promise<string>;
+
 export function DigitNumber(arg1:number,arg2:string):Promise<string>;
