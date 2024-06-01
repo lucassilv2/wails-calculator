@@ -1,13 +1,20 @@
 <script>
-  import {DigitNumber, Clear, Backspace, ClearMemory} from '../wailsjs/go/main/App.js'
+  import {DigitNumber, Clear, Backspace, ClearMemory, DigitOperation} from '../wailsjs/go/main/App.js'
 
   let resultText = "0"
-  let memory = "100+"
+  let memory = ""
   $: console.log(resultText)
 
   function digitNumber(digit) {
     DigitNumber(digit, resultText).then(result => {
       resultText = result
+    })
+  }
+
+  function digitOperation(operator) {
+    DigitOperation(operator, resultText, memory).then(result => {
+      resultText = result[0]
+      memory = result[1]
     })
   }
 
@@ -44,20 +51,20 @@
     <button class="button">&#8543;x</button>
     <button class="button">x&#178;</button>
     <button class="button">&#8730;x</button>
-    <button class="button operator">%</button>
+    <button class="button operator" on:click={() => digitOperation("/")}>%</button>
     <button class="button" on:click={() => digitNumber(7)}>7</button>
     <button class="button" on:click={() => digitNumber(8)}>8</button>
     <button class="button" on:click={() => digitNumber(9)}>9</button>
-    <button class="button operator">*</button>
+    <button class="button operator" on:click={() => digitOperation("*")}>*</button>
     <button class="button" on:click={() => digitNumber(4)}>4</button>
     <button class="button" on:click={() => digitNumber(5)}>5</button>
     <button class="button" on:click={() => digitNumber(6)}>6</button>
-    <button class="button operator">-</button>
+    <button class="button operator" on:click={() => digitOperation("-")}>-</button>
     <button class="button" on:click={() => digitNumber(1)}>1</button>
     <button class="button" on:click={() => digitNumber(2)}>2</button>
     <button class="button" on:click={() => digitNumber(3)}>3</button>
-    <button class="button operator">+</button>
-    <button class="button operator">+/-</button>
+    <button class="button operator" on:click={() => digitOperation("+")}>+</button>
+    <button class="button operator" on:click={() => digitOperation("*-1")}>+/-</button>
     <button class="button" on:click={() => digitNumber(0)}>0</button>
     <button class="button">.</button>
     <button class="button operator">=</button>

@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"strconv"
 )
 
 // App struct
@@ -41,4 +42,57 @@ func (a *App) Backspace(text string) string {
 		return "0"
 	}
 	return text[:len(text)-1]
+}
+
+func (a *App) Add(onScreenNumber string, memory string) float64 {
+	onScreenNumberFloat, _ := strconv.ParseFloat(onScreenNumber, 64)
+	memoryFloat, _ := strconv.ParseFloat(memory, 64)
+	return onScreenNumberFloat + memoryFloat
+}
+
+func (a *App) Subtract(onScreenNumber string, memory string) float64 {
+	onScreenNumberFloat, _ := strconv.ParseFloat(onScreenNumber, 64)
+	memoryFloat, _ := strconv.ParseFloat(memory, 64)
+	return memoryFloat - onScreenNumberFloat
+}
+
+func (a *App) Multiply(onScreenNumber string, memory string) float64 {
+	onScreenNumberFloat, _ := strconv.ParseFloat(onScreenNumber, 64)
+	memoryFloat, _ := strconv.ParseFloat(memory, 64)
+	return onScreenNumberFloat * memoryFloat
+}
+
+func (a *App) Divide(onScreenNumber string, memory string) float64 {
+	onScreenNumberFloat, _ := strconv.ParseFloat(onScreenNumber, 64)
+	memoryFloat, _ := strconv.ParseFloat(memory, 64)
+	return memoryFloat / onScreenNumberFloat
+}
+
+func (a *App) DigitOperation(operation string, onScreenNumber string, memory string) []string {
+	if memory == "" {
+		memory = onScreenNumber + operation
+		onScreenNumber = "0"
+		return []string{onScreenNumber, memory}
+	} else {
+		// swith case with operation
+		sinal := memory[len(memory)-1:]
+		// removing last character from memory
+		memory = memory[:len(memory)-1]
+		switch sinal {
+		case "+":
+			memory = fmt.Sprintf("%f", a.Add(onScreenNumber, memory))
+			onScreenNumber = "0"
+		case "-":
+			memory = fmt.Sprintf("%f", a.Subtract(onScreenNumber, memory))
+			onScreenNumber = "0"
+		case "*":
+			memory = fmt.Sprintf("%f", a.Multiply(onScreenNumber, memory))
+			onScreenNumber = "0"
+		case "/":
+			memory = fmt.Sprintf("%f", a.Divide(onScreenNumber, memory))
+			onScreenNumber = "0"
+		}
+		memory += operation
+	}
+	return []string{onScreenNumber, memory}
 }
